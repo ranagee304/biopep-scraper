@@ -30,15 +30,7 @@ Columns:
 
 ---
 
-## ⚙️ How to Run Locally
+## ⚙️ Run Locally
 
 ```bash
 Rscript biopep_parallel.R
-
----
-## 👨‍🔬 Author
-
-Amir Shazad  
-Food Microbiologist | Bioinformatics & Fermentation Research
-
-
