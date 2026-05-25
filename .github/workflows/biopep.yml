@@ -1,4 +1,4 @@
-name: BIOPEP Parallel Scraper
+name: BIOPEP Scraper Pipeline
 
 on:
   workflow_dispatch:
@@ -28,10 +28,10 @@ jobs:
           ), repos="https://cloud.r-project.org")'
 
       - name: Run scraper
-        run: Rscript scraper.R
+        run: Rscript biopep_parallel.R
 
-      - name: Upload result
+      - name: Upload results
         uses: actions/upload-artifact@v4
         with:
-          name: biopep-output
-          path: BIOPEP_PARALLEL.xlsx
+          name: biopep-results
+          path: BIOPEP_sequences.xlsx
