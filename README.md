@@ -35,7 +35,7 @@ Columns:
 ```bash
 Rscript biopep_parallel.R
 
-
+---
 ## 👨‍🔬 Author
 
 Amir Shazad  
