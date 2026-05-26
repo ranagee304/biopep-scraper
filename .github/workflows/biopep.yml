@@ -1,10 +1,11 @@
-name: BIOPEP Scraper Pipeline
+name: BIOPEP Scraper
 
 on:
   workflow_dispatch:
 
 jobs:
   scrape:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -15,30 +16,12 @@ jobs:
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
 
-      - name: Install dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: |
-            any::rvest
-            any::stringr
-            any::dplyr
-            any::purrr
-            any::furrr
-            any::future
-            any::openxlsx
-            any::xml2
-            any::httr
-
-      - name: Verify rvest
-        run: |
-          Rscript -e 'library(rvest); cat("RVEST OK\n")'
-
       - name: Run scraper
         run: |
-          Rscript biopep_parallel.R
+          Rscript scraper.R
 
-      - name: Upload results
+      - name: Upload Excel
         uses: actions/upload-artifact@v4
         with:
           name: BIOPEP-results
-          path: BIOPEP_sequences.xlsx
+          path: BIOPEP_ALL_sequences.xlsx
