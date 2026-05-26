@@ -6,22 +6,6 @@
 # INSTALL + LOAD PACKAGES
 # ---------------------------
 
-packages <- c(
-  "rvest",
-  "stringr",
-  "dplyr",
-  "purrr",
-  "furrr",
-  "future",
-  "openxlsx"
-)
-
-installed <- packages %in% rownames(installed.packages())
-
-if(any(!installed)){
-  install.packages(packages[!installed], repos = "https://cloud.r-project.org")
-}
-
 library(rvest)
 library(stringr)
 library(dplyr)
