@@ -7,8 +7,8 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
 
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    permissions:
+      contents: read
 
     steps:
 
@@ -18,20 +18,13 @@ jobs:
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
 
-      - name: Setup Pandoc
-        uses: r-lib/actions/setup-pandoc@v2
-
-      - name: Install Linux system libraries
+      - name: Install pak
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libcurl4-openssl-dev \
-            libssl-dev \
-            libxml2-dev
+          Rscript -e 'install.packages("pak", repos="https://cloud.r-project.org")'
 
-      - name: Install R dependencies
+      - name: Install required packages
         run: |
-          Rscript -e 'install.packages(c(
+          Rscript -e 'pak::pkg_install(c(
             "rvest",
             "stringr",
             "dplyr",
@@ -41,17 +34,17 @@ jobs:
             "openxlsx",
             "xml2",
             "httr"
-          ), repos="https://cloud.r-project.org")'
+          ))'
 
-      - name: Verify packages
+      - name: Test rvest
         run: |
-          Rscript -e 'library(rvest); cat("rvest OK\n")'
+          Rscript -e 'library(rvest); cat("rvest installed successfully\n")'
 
       - name: Run scraper
         run: |
           Rscript biopep_parallel.R
 
-      - name: Upload Excel results
+      - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: BIOPEP-results
